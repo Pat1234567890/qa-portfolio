@@ -1,19 +1,9 @@
-# qa-portfolio
-James Kirkland’s QA sample bug reports
-# Sample Bug Reports – James Kirkland
+Welcome to my QA portfolio. This repo contains:
 
-## Bug 1: Restaurant Name Overlaps Price
-**Summary:** Restaurant name overlaps the “12 $” price label on the Dish Details screen.  
-**Steps to Reproduce:**  
-1. Launch the app in Android emulator  
-2. Select “Tomato soup with croutons”  
-3. Observe overlapping text and price  
-**Expected:** Name and price are separate  
-**Actual:** They overlap  
-**Severity:** Medium  
-**Screenshot:**  
-[ULABR-1_attachments.zip](https://github.com/user-attachments/files/21531212/ULABR-1_attachments.zip)
+- **Sample Bug Reports** (`sample-bugs.md`) with embedded screenshots  
+- **Test Case Templates** (`test-case-templates.md`) for manual testing  
+- **API Test Collection** (`api-tests.postman_collection.json`) for Postman  
+- **SQL Snippets** (`sql-snippets.md`) demonstrating data-verification queries  
 
-
----  
+Feel free to browse each file for detailed QA deliverables.
 
