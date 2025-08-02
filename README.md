@@ -1,53 +1,22 @@
-{
-  "info": {
-    "name": "Urban Lunch API Smoke Tests",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "GET /dishes",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": { "raw": "https://api.urbanlunch.local/v1/dishes", "host": ["https://api.urbanlunch.local"], "path": ["v1","dishes"] }
-      },
-      "response": [],
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
-              "pm.test('Response contains dishes array', () => pm.response.json().hasOwnProperty('dishes'));"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "POST /orders",
-      "request": {
-        "method": "POST",
-        "header": [{"key":"Content-Type","value":"application/json"}],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"dish_id\":1,\"pickup_point_id\":2}"
-        },
-        "url": { "raw": "https://api.urbanlunch.local/v1/orders", "host": ["https://api.urbanlunch.local"], "path": ["v1","orders"] }
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test('Order created (201)', () => pm.response.to.have.status(201));",
-              "pm.test('Response has order_id', () => pm.response.json().hasOwnProperty('order_id'));"
-            ]
-          }
-        }
-      ]
-    }
-  ]
-}
+# SQL Snippets for Data Verification
+
+## 1. Count Unique Vehicles
+```sql
+SELECT COUNT(DISTINCT vehicle_id) AS total_vehicle_count
+FROM cabs;
+SELECT company_name,
+       COUNT(DISTINCT vehicle_id) AS fleet_size
+FROM cabs
+GROUP BY company_name
+HAVING COUNT(DISTINCT vehicle_id) < 100
+ORDER BY fleet_size DESC;
+SELECT order_id, user_id
+FROM orders
+WHERE order_date IS NULL;
+SELECT customer_id,
+       SUM(total_amount) AS lifetime_value
+FROM orders
+GROUP BY customer_id
+HAVING SUM(total_amount) > 10000;
 
 
