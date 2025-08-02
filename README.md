@@ -1,12 +1,53 @@
-# Manual Test Case Templates
-
-Use this template for documenting manual test cases.
-
-| **ID**  | **Title**                          | **Preconditions**             | **Steps**                                                       | **Expected Result**                          | **Actual Result** | **Status** | **Bug Link** |
-|:-------:|------------------------------------|------------------------------|-----------------------------------------------------------------|----------------------------------------------|-------------------|------------|--------------|
-| TC-001   | Login with valid credentials       | App installed, user exists   | 1. Open app<br>2. Enter username/password<br>3. Tap Login       | User navigates to Secure Area                |                   |            |              |
-| TC-002   | Login with blank fields            | App installed                | 1. Open app<br>2. Leave fields blank<br>3. Tap Login            | Error “Your username is invalid!”            |                   |            |              |
-| TC-003   | Search field boundary values       | App installed                | 1. Open Search<br>2. Enter 51-char string<br>3. Submit search   | Error “Search term too long”                 |                   |            |              |
-| …        | …                                  | …                            | …                                                               | …                                            | …                 | …          | …            |
+{
+  "info": {
+    "name": "Urban Lunch API Smoke Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /dishes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "https://api.urbanlunch.local/v1/dishes", "host": ["https://api.urbanlunch.local"], "path": ["v1","dishes"] }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', () => pm.response.to.have.status(200));",
+              "pm.test('Response contains dishes array', () => pm.response.json().hasOwnProperty('dishes'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST /orders",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"dish_id\":1,\"pickup_point_id\":2}"
+        },
+        "url": { "raw": "https://api.urbanlunch.local/v1/orders", "host": ["https://api.urbanlunch.local"], "path": ["v1","orders"] }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Order created (201)', () => pm.response.to.have.status(201));",
+              "pm.test('Response has order_id', () => pm.response.json().hasOwnProperty('order_id'));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
 
 
